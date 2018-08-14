@@ -18,18 +18,9 @@ labelSelect.innerText = 'Select List:'
 labelSelect.htmlFor = 'parent-list'
 taskForm.appendChild(labelSelect)
 
-/////////////////FOR TEST PURPOSE ONLY//////////
-let optionList = []
-
-// optionList.forEach(add to the select)
-let optionOne = document.createElement('option')
-optionOne.innerText = 'test'
-
-
 let selectList = document.createElement('select')
-selectList.appendChild(optionOne) /////////////////////TEST PURPOSE ONLY
+selectList.id = 'parent-list'
 taskForm.appendChild(selectList)
-// COME BACK TO ////////////////////////////////////////
 
 let labelTask = document.createElement('label')
 labelTask.innerText = 'Task description:'
@@ -42,7 +33,6 @@ inputTask.required = true
 inputTask.type = 'text'
 inputTask.placeholder = 'description'
 taskForm.appendChild(inputTask)
-
 
 let labelPriority = document.createElement('label')
 labelPriority.innerText = 'Priority level:'
@@ -64,6 +54,7 @@ taskForm.appendChild(inputCreate)
 taskForm.style.display = "block"
 
 listForm.addEventListener('submit', function(e) {
+//todo uniq
   e.preventDefault();
   //task form
   taskForm.style.display = "block"
@@ -74,17 +65,30 @@ listForm.addEventListener('submit', function(e) {
   let listItemDelete = document.createElement('button')
   listItemDelete.className = 'delete-list'
   listItemDelete.dataset.title = listInput.value
+  let newOption = document.createElement('option')
+  newOption.innerText = listInput.value
+  newOption.value = listInput.value
+  selectList.appendChild(newOption)
   listItemDelete.innerText = 'x'
   let listUl = document.createElement('ul')
 
   listItemTitle.innerText = listInput.value
+
   listDiv.appendChild(listItemDiv)
   listItemDiv.appendChild(listItemTitle)
   listItemTitle.appendChild(listItemDelete)
+  listItemDiv.appendChild(listUl)
 
-  // append option to taskForm?
-  // optionList.push(listInput.value)
+})
 
+taskForm.addEventListener('submit', function(e) {
+  e.preventDefault()
+  let listHeader = [...document.getElementsByTagName('h2')].find(h => h.innerText === selectList.value + 'x')
+  let ul = listHeader.nextSibling
+  let taskDesc = inputTask.value
+  let taskPriority = inputPriority.value
 
-
+  let li = document.createElement('li')
+  li.innerHTML = "Task: " + taskDesc + "<button data-list-title=" + `${selectList.value} ` + "data-task-name=" + `${taskDesc} ` + "class='delete-task'> x </button> <br> Priority: " + taskPriority
+  ul.appendChild(li)
 })
