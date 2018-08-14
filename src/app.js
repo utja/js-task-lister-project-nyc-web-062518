@@ -96,6 +96,9 @@ taskForm.addEventListener('submit', function(e) {
 listDiv.addEventListener('click', function(e) {
   if (e.target.className === "delete-list") {
     e.target.parentNode.parentNode.remove()
+    let title = e.target.parentNode.innerText.slice(0, -1)
+    let option = document.querySelector(`option[value="${title}"]`)
+    option.remove()
   }
   if (e.target.className === "delete-task") {
     e.target.parentNode.remove()
