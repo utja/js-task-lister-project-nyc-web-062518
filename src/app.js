@@ -92,3 +92,14 @@ taskForm.addEventListener('submit', function(e) {
   li.innerHTML = "Task: " + taskDesc + "<button data-list-title=" + `${selectList.value} ` + "data-task-name=" + `${taskDesc} ` + "class='delete-task'> x </button> <br> Priority: " + taskPriority
   ul.appendChild(li)
 })
+
+listDiv.addEventListener('click', function(e) {
+  if (e.target.className === "delete-list") {
+    e.target.parentNode.parentNode.remove()
+  }
+  if (e.target.className === "delete-task") {
+    e.target.parentNode.remove()
+  }
+})
+// document.getElementsByClass()
+// all buttons with the class
